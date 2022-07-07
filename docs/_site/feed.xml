@@ -1,1 +1,249 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-06T20:27:09+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">前端开发-【姜斌】</title><subtitle>一个普普通通，热爱编程，尊重用户的前端开发工程师。Vue React NodeJs</subtitle></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-07T10:16:31+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">前端开发-【姜斌】</title><subtitle>一个普普通通，热爱编程，尊重用户的前端开发工程师。Vue React NodeJs</subtitle><entry><title type="html">Nginx配置实践</title><link href="http://localhost:4000/nginx/2022/07/06/nginx.html" rel="alternate" type="text/html" title="Nginx配置实践" /><published>2022-07-06T17:10:11+08:00</published><updated>2022-07-06T17:10:11+08:00</updated><id>http://localhost:4000/nginx/2022/07/06/nginx</id><content type="html" xml:base="http://localhost:4000/nginx/2022/07/06/nginx.html">&lt;h2 id=&quot;websocket-代理配置&quot;&gt;websocket 代理配置&lt;/h2&gt;
+
+&lt;h3 id=&quot;基础写法&quot;&gt;基础写法&lt;/h3&gt;
+
+&lt;div class=&quot;language-config highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; {
+  &lt;span class=&quot;n&quot;&gt;listen&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;8000&lt;/span&gt;;
+  &lt;span class=&quot;n&quot;&gt;server_name&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;localhost&lt;/span&gt;;
+
+  &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; / {
+    &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;D&lt;/span&gt;:/&lt;span class=&quot;n&quot;&gt;web&lt;/span&gt;/;
+    &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;try_files&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;/ /&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;;
+  }
+
+  &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;websocket&lt;/span&gt;/ {
+    &lt;span class=&quot;n&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;://&lt;span class=&quot;m&quot;&gt;192&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;168&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;3000&lt;/span&gt;/;
+    &lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Host&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;; 
+    &lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Real&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;IP&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;remote_addr&lt;/span&gt;; 
+    &lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Forwarded&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;For&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;proxy_add_x_forwarded_for&lt;/span&gt;; 
+    &lt;span class=&quot;n&quot;&gt;proxy_http_version&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;;
+    &lt;span class=&quot;c&quot;&gt;# 连接成功后等待服务器响应时长，默认为60s
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;proxy_read_timeout&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;3600&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;;
+    &lt;span class=&quot;c&quot;&gt;# 关键：启用支持websocket连接
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Upgrade&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;http_upgrade&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Connection&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;upgrade&quot;&lt;/span&gt;;
+  }
+
+  &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; /&lt;span class=&quot;n&quot;&gt;stage&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;api&lt;/span&gt;/ {
+    &lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Host&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Real&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;IP&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;remote_addr&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Real&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Port&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;remote_port&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;Forwarded&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;For&lt;/span&gt; $&lt;span class=&quot;n&quot;&gt;proxy_add_x_forwarded_for&lt;/span&gt;;
+    &lt;span class=&quot;n&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;://&lt;span class=&quot;m&quot;&gt;192&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;168&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;.&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;3000&lt;/span&gt;/;
+  }
+
+  &lt;span class=&quot;n&quot;&gt;error_page&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;500&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;502&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;503&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;504&lt;/span&gt;  /&lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;;
+  &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; = /&lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;.&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt; {
+    &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：在前端代码中的websocket请求地址，要用当前访问的url中host。否则不会被nginx代理&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`ws:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;localhost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/websocket/chat`&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;websocket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Websocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://nginx.org/en/docs/http/websocket.html&quot;&gt;Nginx官网&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name></name></author><category term="nginx" /><summary type="html">websocket 代理配置</summary></entry><entry><title type="html">Github Pages</title><link href="http://localhost:4000/github/2022/07/06/Github-Pages.html" rel="alternate" type="text/html" title="Github Pages" /><published>2022-07-06T17:10:11+08:00</published><updated>2022-07-06T17:10:11+08:00</updated><id>http://localhost:4000/github/2022/07/06/Github%20Pages</id><content type="html" xml:base="http://localhost:4000/github/2022/07/06/Github-Pages.html">&lt;h3 id=&quot;创建项目&quot;&gt;创建项目&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;需要注意仓库公开（Public）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://docs.github.com/cn/pages/quickstart&quot;&gt;url&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;安装jekyllrb&quot;&gt;安装jekyllrb&lt;/h3&gt;
+
+&lt;p&gt;配置更丰富的主题，配置自定义样式&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/docs/installation/windows/&quot;&gt;url&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;下载rubydevkit-环境&quot;&gt;下载Ruby+Devkit 环境&lt;/h3&gt;
+
+&lt;p&gt;用于在本地运行调试&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://rubyinstaller.org/downloads/&quot;&gt;url&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;最终目录结构&quot;&gt;最终目录结构&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;_posts (文章目录)
+    &lt;ul&gt;
+      &lt;li&gt;2022-07-06-XXX.markdown (文章页，使用md格式编写，注意：标题日期要和文章内date对应)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;_site (自动生成的站点目录，可忽略)&lt;/li&gt;
+  &lt;li&gt;_config.yml (重要的配置文件，包括网站标题、个人信息、主题等。注意：修改后重启服务才能生效)&lt;/li&gt;
+  &lt;li&gt;.gitignore&lt;/li&gt;
+  &lt;li&gt;404.html&lt;/li&gt;
+  &lt;li&gt;about.markdown (自动生成单页面，可在同级添加其他页面，导航中自动生成。如果有同名.md文件可以删除)&lt;/li&gt;
+  &lt;li&gt;Gemfile (重要的项目依赖包，如果新加主题记得要先安装主题依赖)&lt;/li&gt;
+  &lt;li&gt;Gemfile.lock&lt;/li&gt;
+  &lt;li&gt;index.markdown (入口页)&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="github" /><summary type="html">创建项目</summary></entry><entry><title type="html">Markdown格式</title><link href="http://localhost:4000/markdown/2022/07/06/Md%E6%A0%BC%E5%BC%8F.html" rel="alternate" type="text/html" title="Markdown格式" /><published>2022-07-06T17:10:11+08:00</published><updated>2022-07-06T17:10:11+08:00</updated><id>http://localhost:4000/markdown/2022/07/06/Md%E6%A0%BC%E5%BC%8F</id><content type="html" xml:base="http://localhost:4000/markdown/2022/07/06/Md%E6%A0%BC%E5%BC%8F.html">&lt;h1 id=&quot;欢迎使用markdown编辑器&quot;&gt;欢迎使用Markdown编辑器&lt;/h1&gt;
+
+&lt;p&gt;你好！ 这是你第一次使用 &lt;strong&gt;Markdown编辑器&lt;/strong&gt; 所展示的欢迎页。如果你想学习如何使用Markdown编辑器, 可以仔细阅读这篇文章，了解一下Markdown的基本语法知识。&lt;/p&gt;
+
+&lt;h2 id=&quot;如何改变文本的样式&quot;&gt;如何改变文本的样式&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;强调文本&lt;/em&gt; &lt;em&gt;强调文本&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;加粗文本&lt;/strong&gt; &lt;strong&gt;加粗文本&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;删除文本&lt;/del&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;引用文本&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;如何创建一个注脚&quot;&gt;如何创建一个注脚&lt;/h2&gt;
+
+&lt;p&gt;一个具有注脚的文本。&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;插入链接与图片&quot;&gt;插入链接与图片&lt;/h2&gt;
+
+&lt;p&gt;链接: &lt;a href=&quot;/&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;图片: &lt;img src=&quot;https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hdmF0YXIuY3Nkbi5uZXQvNy83L0IvMV9yYWxmX2h4MTYzY29tLmpwZw&quot; alt=&quot;Alt&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当然，我们为了让用户更加便捷，我们增加了图片拖拽功能。&lt;/p&gt;
+
+&lt;h2 id=&quot;如何插入一段漂亮的代码片&quot;&gt;如何插入一段漂亮的代码片&lt;/h2&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// An highlighted block&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;生成一个适合你的列表&quot;&gt;生成一个适合你的列表&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;项目
+    &lt;ul&gt;
+      &lt;li&gt;项目
+        &lt;ul&gt;
+          &lt;li&gt;项目&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;项目1&lt;/li&gt;
+  &lt;li&gt;项目2&lt;/li&gt;
+  &lt;li&gt;项目3&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;计划任务&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;完成任务&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;创建一个表格&quot;&gt;创建一个表格&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;手机&lt;/th&gt;
+      &lt;th&gt;价格&lt;/th&gt;
+      &lt;th&gt;型号&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;华为&lt;/td&gt;
+      &lt;td&gt;￥1500&lt;/td&gt;
+      &lt;td&gt;Meta10&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ViVO&lt;/td&gt;
+      &lt;td&gt;￥1600&lt;/td&gt;
+      &lt;td&gt;Area11&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;OPPO&lt;/td&gt;
+      &lt;td&gt;￥1700&lt;/td&gt;
+      &lt;td&gt;Find15&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;设定内容居中居左居右&quot;&gt;设定内容居中、居左、居右&lt;/h3&gt;
+&lt;p&gt;使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:---------:&lt;/code&gt;居中
+使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:----------&lt;/code&gt;居左
+使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;----------:&lt;/code&gt;居右&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;手机&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;价格&lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;型号&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;华为&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;￥1500&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;Meta10&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;ViVO&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;￥1600&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;Area11&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;OPPO&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;￥1700&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;Find15&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;smartypants&quot;&gt;SmartyPants&lt;/h3&gt;
+&lt;p&gt;SmartyPants将ASCII标点字符转换为“智能”印刷标点&lt;abbr title=&quot;超文本标记语言&quot;&gt;HTML&lt;/abbr&gt;实体。例如：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;TYPE&lt;/th&gt;
+      &lt;th&gt;ASCII&lt;/th&gt;
+      &lt;th&gt;&lt;abbr title=&quot;超文本标记语言&quot;&gt;HTML&lt;/abbr&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Single backticks&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;Isn&apos;t this fun?&apos;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;‘Isn’t this fun?’&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Quotes&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;Isn&apos;t this fun?&quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;“Isn’t this fun?”&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Dashes&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-- is en-dash, --- is em-dash&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;– is en-dash, — is em-dash&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;注释也是必不可少的&quot;&gt;注释也是必不可少的&lt;/h2&gt;
+
+&lt;p&gt;Markdown将文本转换为 &lt;abbr title=&quot;超文本标记语言&quot;&gt;HTML&lt;/abbr&gt;。&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;注脚的解释 &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="markdown" /><summary type="html">欢迎使用Markdown编辑器</summary></entry></feed>

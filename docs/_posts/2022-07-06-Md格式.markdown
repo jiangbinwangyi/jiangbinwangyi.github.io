@@ -1,0 +1,93 @@
+---
+layout: post
+title:  "Markdown格式"
+date:   2022-07-06 17:10:11 +0800
+categories: markdown
+---
+
+# 欢迎使用Markdown编辑器
+
+你好！ 这是你第一次使用 **Markdown编辑器** 所展示的欢迎页。如果你想学习如何使用Markdown编辑器, 可以仔细阅读这篇文章，了解一下Markdown的基本语法知识。
+
+## 如何改变文本的样式
+
+*强调文本* _强调文本_
+
+**加粗文本** __加粗文本__
+
+~~删除文本~~
+
+> 引用文本
+
+## 如何创建一个注脚
+
+一个具有注脚的文本。[^2]
+
+## 插入链接与图片
+
+链接: [link](/).
+
+图片: ![Alt](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hdmF0YXIuY3Nkbi5uZXQvNy83L0IvMV9yYWxmX2h4MTYzY29tLmpwZw)
+
+当然，我们为了让用户更加便捷，我们增加了图片拖拽功能。
+
+## 如何插入一段漂亮的代码片
+
+```javascript
+// An highlighted block
+var foo = 'bar';
+```
+
+## 生成一个适合你的列表
+
+- 项目
+  - 项目
+    - 项目
+
+1. 项目1
+2. 项目2
+3. 项目3
+
+- [ ] 计划任务
+- [x] 完成任务
+
+## 创建一个表格
+
+手机 | 价格 | 型号
+---- | ---- | ----
+华为 | ￥1500 | Meta10
+ViVO | ￥1600 | Area11
+OPPO | ￥1700 | Find15
+
+### 设定内容居中、居左、居右
+使用`:---------:`居中
+使用`:----------`居左
+使用`----------:`居右
+
+| 手机 | 价格 | 型号 |
+| :----: | :---- | ----: |
+| 华为 | ￥1500 | Meta10 |
+| ViVO | ￥1600 | Area11 |
+| OPPO | ￥1700 | Find15 |
+
+### SmartyPants
+SmartyPants将ASCII标点字符转换为“智能”印刷标点HTML实体。例如：
+
+|    TYPE   |ASCII                          |HTML
+|----------------|-------------------------------|-----------------------------|
+|Single backticks|`'Isn't this fun?'`            |'Isn't this fun?'            |
+|Quotes          |`"Isn't this fun?"`            |"Isn't this fun?"            |
+|Dashes          |`-- is en-dash, --- is em-dash`|-- is en-dash, --- is em-dash|
+
+[^2]: 注脚的解释
+
+##  注释也是必不可少的
+
+Markdown将文本转换为 HTML。
+
+*[HTML]:   超文本标记语言
+
+ [1]: http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
+ [2]: https://mermaidjs.github.io/
+ [3]: https://mermaidjs.github.io/
+ [4]: http://adrai.github.io/flowchart.js/

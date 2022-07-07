@@ -1,18 +1,73 @@
 ---
 layout: page
-title: About
+title: 自我简介
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
-
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+| 姓名 |   籍贯  | 前端从业时间 |
+| ---- | ------ | ----------- |
+| 姜斌 | 辽宁抚顺 |  2010年6月  |
 
 
-[jekyll-organization]: https://github.com/jekyll
+## 专业技能
+
+### 前端开发
+1. 精通基于vue.js框架开发。对于vue.js的mvvm设计思想、虚拟dom、生命周期有着深入的认识和研究，读过vue源码，了解其实现原理。以及对vue-cli、vuex、vue-router和下一代vue3都有熟悉。
+
+2. 有完整的开发流程和规范，包括工程化、模块化，通用化开发。了解webpack脚手架、eslint语言可读性规范、jest单元测试、mock接口调试、npm插件管理、node服务热重载开发、反向代理和nginx部署。
+
+3. 有大量各类三方插件、工具库使用经验。包括但不限于（antd、elementui、views）
+
+4. 能保证源码高可读性和可维护性。熟悉前端开发各项规范标准，包括命名、缩进、模块化设计、可视化组件封装、通用功能抽离成插件。多端、注释清晰、易扩展、实例化、避免耦合。
+
+5. 有丰富的前后端协同开发经验，包括RestfulApi、websocket通信、文件上传下载、跨域等。
+
+6. 基于Echart、D3js、threeJs、webGL、canvas、AntX等技术进行数据可视化开发。
+
+### UI和UX设计
+1. 能独立完成产品或项目设计工作
+2. 包括思维导图、模块拆解、功能流程梳理
+3. 使用PhotoShop或figma完成视觉设计
+4. 使用Axure等原型工具完成用户体验交互设计
+5. 使用蓝湖墨刀等协同开发平台
+
+### 服务端开发
+1. 熟练使用koa2、egg等框架完成基于node.js的服务端开发
+2. resfulApi开发
+3. websock实时通信
+4. mysql数据库设计
+5. Linux服务器环境搭建等。
+6. 对接过JAVA、php、node、python等各类后端语言和框架。
+
+
+## 对前端个人理解
+
+### 团队协同开发
+前端开发工作要同时面对用户，产品，UI设计师，后端开发，测试等一系列人员。所以前端人要具备优秀的协同开发能力，善于与各种身份的人进行沟通交流，既要理解用户的需求，产品和UI的设计思路，后端接口联调开发，以及测试人员的反馈等等。
+
+### 需求精准转化
+对用户和产品的需求及思路有深入的了解，包括用户的使用习惯，目标用户群的分析，任务流拆解，辅助并引导用户对需求的梳理等等，绝不能浅尝辄止，要将用户需求转化为代码逻辑进行精准实现。
+
+### 总结归纳整理
+由于前端开发的复杂性，多样性，每次开发任务完成后都要有重新复盘的能力，对使用的新技术新思路，新解决方案总结归纳，并且经过长期规划整理出自己适用的框架结构，开发流程，编码规范及学习方式。
+
+### 不断探索提升
+由于前端的开源性质，有大量前端社区，框架，插件，工具集，UI库等等资源。而且在源源不断的更新迭代，千万不要闭门造车，止步不前，要不断学习探索尝试新的技术，致力为用户提供更优质的解决方案。
+
+
+## 经验总结
+
+### 基础架构
+根据多年开发经验，构建了多套针对不同解决方案的基础架构，包括框架选择、全局配置、常用组件库等。能在此之上进行快速且规范的二次开发，形成成熟稳定的项目。
+
+### 流程制定
+为了便于团队多人协同开发及规范开发人员操作，需要制定出一整套从构建、开发、测试、编译、部署等一系列流程，形成前端开发流程手册。
+
+### 定义规范
+命名、缩进、注释、目录结构、异常处理、组件封装、插件抽取、全局定义、vue规范等内容形成前端开发规范手册，也是便于协同开发，保证工程化开发。
+
+### 源码管理
+包括源码分支管理、开发环境管理。分支默认有主分支、开发分支、测试分支、修复分支、功能分支。环境默认有：开发环境、生产环境、阶段环境、测试环境。
+
+### 版本控制
+版本类型默认有Alpha、Beta、RC、stable等四个。作用分别为内测、公测、生产备选、生产版本。版本号默认三级、主版本号、次版本号、修订版本号等。
