@@ -1,0 +1,100 @@
+---
+layout: post
+title:  "vue-$emit"
+date:   2022-07-08 17:10:11 +0800
+categories: vue
+---
+
+### 子组件
+
+```html
+<template>
+  <div></div>
+</template>
+<script>
+  export default {
+    mounted() {
+      this.$emit('childMounted', 'arg1', 'arg2')
+    }
+  }
+</script>
+```
+
+### 父组件
+
+```html
+<template>
+  <div>
+    <!-- 如果此处用$event代替arguments只能获取第一个参数arg1 -->
+    <Child @childMounted="handleChild(arguments, 'customArg')" />
+  </div>
+</template>
+<script>
+  import Child from './child.vue'
+  export default {
+    components: {
+      Child
+    },
+    methods: {
+      handleChild(args, custom) {
+        // 子组件定义参数
+        console.log(args[0], args[1]) //arg1, arg2
+        // 父组件自定义参数
+        console.log(custom) // customArg
+      }
+    }
+  }
+</script>
+```
+
+### vue源码部分
+
+```javascript
+// 229-237
+function toArray (list, start) {
+  start = start || 0;
+  var i = list.length - start;
+  var ret = new Array(i);
+  while (i--) {
+    ret[i] = list[i + start];
+  }
+  return ret
+}
+
+// 3863-3887
+Vue.prototype.$emit = function (event) {
+  var vm = this;
+  {
+    var lowerCaseEvent = event.toLowerCase();
+    if (lowerCaseEvent !== event && vm._events[lowerCaseEvent]) {
+      tip(
+        "Event \"" + lowerCaseEvent + "\" is emitted in component " +
+        (formatComponentName(vm)) + " but the handler is registered for \"" + event + "\". " +
+        "Note that HTML attributes are case-insensitive and you cannot use " +
+        "v-on to listen to camelCase events when using in-DOM templates. " +
+        "You should probably use \"" + (hyphenate(event)) + "\" instead of \"" + event + "\"."
+      );
+    }
+  }
+  var cbs = vm._events[event];
+  if (cbs) {
+    cbs = cbs.length > 1 ? toArray(cbs) : cbs;
+    var args = toArray(arguments, 1); // 重点部分
+    var info = "event handler for \"" + event + "\"";
+    for (var i = 0, l = cbs.length; i < l; i++) {
+      invokeWithErrorHandling(cbs[i], vm, args, vm, info);
+    }
+  }
+  return vm
+};
+```
+
+### MDN中arguments对象
+
+1. a
+```
+```
+
+> [MDN详细介绍](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments)
+
+

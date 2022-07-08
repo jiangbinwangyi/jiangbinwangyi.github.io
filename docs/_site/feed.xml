@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-07T10:16:31+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">前端开发-【姜斌】</title><subtitle>一个普普通通，热爱编程，尊重用户的前端开发工程师。Vue React NodeJs</subtitle><entry><title type="html">Nginx配置实践</title><link href="http://localhost:4000/nginx/2022/07/06/nginx.html" rel="alternate" type="text/html" title="Nginx配置实践" /><published>2022-07-06T17:10:11+08:00</published><updated>2022-07-06T17:10:11+08:00</updated><id>http://localhost:4000/nginx/2022/07/06/nginx</id><content type="html" xml:base="http://localhost:4000/nginx/2022/07/06/nginx.html">&lt;h2 id=&quot;websocket-代理配置&quot;&gt;websocket 代理配置&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-07T10:36:40+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">前端开发-【姜斌】</title><subtitle>一个普普通通，热爱编程，尊重用户的前端开发工程师。Vue React NodeJs</subtitle><entry><title type="html">Nginx配置实践</title><link href="http://localhost:4000/nginx/2022/07/06/nginx.html" rel="alternate" type="text/html" title="Nginx配置实践" /><published>2022-07-06T17:10:11+08:00</published><updated>2022-07-06T17:10:11+08:00</updated><id>http://localhost:4000/nginx/2022/07/06/nginx</id><content type="html" xml:base="http://localhost:4000/nginx/2022/07/06/nginx.html">&lt;h2 id=&quot;websocket-代理配置&quot;&gt;websocket 代理配置&lt;/h2&gt;
 
 &lt;h3 id=&quot;基础写法&quot;&gt;基础写法&lt;/h3&gt;
 
@@ -47,7 +47,46 @@
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;a href=&quot;http://nginx.org/en/docs/http/websocket.html&quot;&gt;Nginx官网&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name></name></author><category term="nginx" /><summary type="html">websocket 代理配置</summary></entry><entry><title type="html">Github Pages</title><link href="http://localhost:4000/github/2022/07/06/Github-Pages.html" rel="alternate" type="text/html" title="Github Pages" /><published>2022-07-06T17:10:11+08:00</published><updated>2022-07-06T17:10:11+08:00</updated><id>http://localhost:4000/github/2022/07/06/Github%20Pages</id><content type="html" xml:base="http://localhost:4000/github/2022/07/06/Github-Pages.html">&lt;h3 id=&quot;创建项目&quot;&gt;创建项目&lt;/h3&gt;
+&lt;/blockquote&gt;</content><author><name></name></author><category term="nginx" /><summary type="html">websocket 代理配置</summary></entry><entry><title type="html">Github Pages</title><link href="http://localhost:4000/github/2022/07/06/Github-Pages-copy.html" rel="alternate" type="text/html" title="Github Pages" /><published>2022-07-06T17:10:11+08:00</published><updated>2022-07-06T17:10:11+08:00</updated><id>http://localhost:4000/github/2022/07/06/Github%20Pages%20copy</id><content type="html" xml:base="http://localhost:4000/github/2022/07/06/Github-Pages-copy.html">&lt;h3 id=&quot;创建项目&quot;&gt;创建项目&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;需要注意仓库公开（Public）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://docs.github.com/cn/pages/quickstart&quot;&gt;url&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;安装jekyllrb&quot;&gt;安装jekyllrb&lt;/h3&gt;
+
+&lt;p&gt;配置更丰富的主题，配置自定义样式&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/docs/installation/windows/&quot;&gt;url&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;下载rubydevkit-环境&quot;&gt;下载Ruby+Devkit 环境&lt;/h3&gt;
+
+&lt;p&gt;用于在本地运行调试&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://rubyinstaller.org/downloads/&quot;&gt;url&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;最终目录结构&quot;&gt;最终目录结构&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;_posts (文章目录)
+    &lt;ul&gt;
+      &lt;li&gt;2022-07-06-XXX.markdown (文章页，使用md格式编写，注意：标题日期要和文章内date对应)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;_site (自动生成的站点目录，可忽略)&lt;/li&gt;
+  &lt;li&gt;_config.yml (重要的配置文件，包括网站标题、个人信息、主题等。注意：修改后重启服务才能生效)&lt;/li&gt;
+  &lt;li&gt;.gitignore&lt;/li&gt;
+  &lt;li&gt;404.html&lt;/li&gt;
+  &lt;li&gt;about.markdown (自动生成单页面，可在同级添加其他页面，导航中自动生成。如果有同名.md文件可以删除)&lt;/li&gt;
+  &lt;li&gt;Gemfile (重要的项目依赖包，如果新加主题记得要先安装主题依赖)&lt;/li&gt;
+  &lt;li&gt;Gemfile.lock&lt;/li&gt;
+  &lt;li&gt;index.markdown (入口页)&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="github" /><summary type="html">创建项目</summary></entry><entry><title type="html">Github Pages</title><link href="http://localhost:4000/github/2022/07/06/Github-Pages.html" rel="alternate" type="text/html" title="Github Pages" /><published>2022-07-06T17:10:11+08:00</published><updated>2022-07-06T17:10:11+08:00</updated><id>http://localhost:4000/github/2022/07/06/Github%20Pages</id><content type="html" xml:base="http://localhost:4000/github/2022/07/06/Github-Pages.html">&lt;h3 id=&quot;创建项目&quot;&gt;创建项目&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;需要注意仓库公开（Public）&lt;/strong&gt;&lt;/p&gt;
 
