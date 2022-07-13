@@ -18,7 +18,7 @@ server {
     index  index.html;
     try_files $uri $uri/ /index.html;
   }
-
+  # websocket 代理
   location /websocket/ {
     proxy_pass http://192.168.0.100:3000/;
     proxy_set_header Host $host; 
@@ -31,7 +31,7 @@ server {
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "upgrade";
   }
-
+  # 其他代理
   location /stage-api/ {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
@@ -49,7 +49,7 @@ server {
 
 **注意：在前端代码中的websocket请求地址，要用当前访问的url中host。否则不会被nginx代理**
 ```javascript
-const url = `ws:${window.localhost.host}/websocket/chat`
+const url = `ws:${window.location.host}/websocket/chat`
 const websocket = new Websocket(url)
 ```
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "vue-$emit"
+title:  "vue-$emit 多参数接收"
 date:   2022-07-08 17:10:11 +0800
 categories: vue
 ---
