@@ -91,8 +91,13 @@ Vue.prototype.$emit = function (event) {
 
 ### MDN中arguments对象
 
-1. a
+arguments对象是所有（非箭头）函数中都可用的局部变量！！！
 ```
+function test() {
+  console.log(arguments) // [1,2,3,4]
+}
+
+test(1,2,3,4)
 ```
 
 > [MDN详细介绍](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments)
