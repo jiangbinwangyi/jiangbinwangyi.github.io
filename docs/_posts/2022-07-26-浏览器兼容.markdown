@@ -5,6 +5,12 @@ date:   2022-07-26 09:47:11 +0800
 categories: vue
 ---
 
+### 环境，要求
+
+1. Vue-cli：4.4.4
+2. Vue: 2.6.10
+3. babel-preset-env 1.7.0
+
 ### 支持XP的火狐
 
 Firefox 52.90 简体中文版（支持XP的最后一个版本）
