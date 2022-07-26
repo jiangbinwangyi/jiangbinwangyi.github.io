@@ -1,0 +1,34 @@
+---
+layout: post
+title:  "浏览器兼容（低版本）"
+date:   2022-07-26 09:47:11 +0800
+categories: vue
+---
+
+### 支持XP的火狐
+
+Firefox 52.90 简体中文版（支持XP的最后一个版本）
+
+> [32位](http://ftp.mozilla.org/pub/firefox/releases/52.9.0esr/win32/zh-CN/)
+
+> [64位](http://ftp.mozilla.org/pub/firefox/releases/52.9.0esr/win64/zh-CN/)
+
+
+> [Firefox火狐浏览器所有历史版本下载地址](http://ftp.mozilla.org/pub/firefox/releases/)
+
+> [重要——Firefox 将停止支持 Windows XP 和 Vista](https://support.mozilla.org/zh-CN/kb/firefox-windows-xp-vista)
+
+
+### package.json bowerlist
+
+> [Github bowerlist](https://github.com/browserslist/browserslist)
+
+
+### @babel/preset-env
+
+> [babeljs](https://babeljs.io/docs/en/babel-preset-env.html#usebuiltins-usage)
+
+
+### Vue-cli
+
+> [浏览器兼容性](https://cli.vuejs.org/zh/guide/browser-compatibility.html)
