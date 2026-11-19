@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>Markdown 可视化编辑器 · Jekyll 博客</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- 顶部：品牌 / 保存状态 / 主要操作 / 视图切换 -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">M↓</span>
+      <div class="brand-text">
+        <strong>Markdown 编辑器</strong>
+        <small>Jekyll · docs/_posts</small>
+      </div>
+    </div>
+
+    <div id="saveState" class="save-state clean" title="自动保存状态">● 就绪</div>
+
+    <div class="top-actions">
+      <button type="button" id="btnNew" class="btn btn-primary">＋ 新建文章</button>
+      <button type="button" id="btnSave" class="btn">立即保存 <kbd>Ctrl+S</kbd></button>
+      <button type="button" id="btnDelete" class="btn btn-danger-ghost">删除</button>
+      <div class="view-switch" role="group" aria-label="视图切换">
+        <button type="button" data-view="split" class="view-btn active">分栏</button>
+        <button type="button" data-view="edit" class="view-btn">仅编辑</button>
+        <button type="button" data-view="preview" class="view-btn">仅预览</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Git 面板 -->
+  <section class="gitbar">
+    <div class="git-row">
+      <span class="git-chip">分支 <strong id="gitBranch">—</strong></span>
+      <span class="git-chip">remote <strong id="gitRemote">—</strong></span>
+      <span class="git-chip git-url" id="gitRemoteUrl" title="远端地址">—</span>
+      <span class="git-chip">变更 <strong id="gitChangeCount">0</strong></span>
+      <span class="git-chip chip-warn" id="gitDryRun" hidden>DRY-RUN</span>
+      <button type="button" id="btnGitRefresh" class="btn btn-small">刷新状态</button>
+    </div>
+    <div class="git-row">
+      <input type="text" id="commitMsg" class="text-input git-msg" placeholder="提交信息（留空自动生成）" autocomplete="off">
+      <button type="button" id="btnGitPush" class="btn btn-push">🚀 一键提交并推送</button>
+    </div>
+    <details class="git-details" id="gitDetails">
+      <summary>Git 工作区变更 / 推送日志（点击展开）</summary>
+      <div class="git-details-body">
+        <div class="git-sub">
+          <label>git status --short</label>
+          <pre id="gitChanges">点击「刷新状态」查看变更列表。</pre>
+        </div>
+        <div class="git-sub">
+          <label>推送执行日志</label>
+          <pre id="gitLog">尚未执行推送。</pre>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 三栏主体 -->
+  <main class="layout view-split" id="layout">
+
+    <!-- 左：文章列表 -->
+    <aside class="pane pane-list">
+      <div class="pane-head">
+        <h2>文章列表 <span class="count" id="postCount">0</span></h2>
+        <input type="search" id="search" class="text-input" placeholder="搜索文件名 / 标题 / 分类" autocomplete="off">
+      </div>
+      <ul class="post-list" id="postList"></ul>
+      <div class="pane-foot" id="listFoot">点击文章打开，或在顶部新建。</div>
+    </aside>
+
+    <!-- 中：编辑区 -->
+    <section class="pane pane-edit">
+      <div class="pane-head">
+        <h2>编辑区</h2>
+      </div>
+
+      <div class="meta-form" id="metaForm">
+        <label class="field">
+          <span>标题</span>
+          <input type="text" id="title" class="text-input" placeholder="文章标题" autocomplete="off" disabled>
+        </label>
+        <label class="field">
+          <span>日期</span>
+          <input type="text" id="date" class="text-input" placeholder="YYYY-MM-DD HH:mm:ss +0800" autocomplete="off" disabled>
+        </label>
+        <label class="field">
+          <span>分类</span>
+          <input type="text" id="categories" class="text-input" placeholder="markdown" autocomplete="off" disabled>
+        </label>
+        <label class="field field-wide">
+          <span>文件名（只读）</span>
+          <input type="text" id="fileName" class="text-input" readonly placeholder="尚未打开文章">
+        </label>
+        <div class="meta-hint" id="metaHint">请先从左侧打开一篇文章，或点击「新建文章」。</div>
+      </div>
+
+      <div class="toolbar" id="toolbar" aria-label="格式工具栏">
+        <button type="button" data-cmd="h1" title="一级标题">H1</button>
+        <button type="button" data-cmd="h2" title="二级标题">H2</button>
+        <button type="button" data-cmd="h3" title="三级标题">H3</button>
+        <span class="sep"></span>
+        <button type="button" data-cmd="bold" title="加粗 Ctrl+B"><b>B</b></button>
+        <button type="button" data-cmd="italic" title="斜体 Ctrl+I"><i>I</i></button>
+        <button type="button" data-cmd="strike" title="删除线"><s>S</s></button>
+        <span class="sep"></span>
+        <button type="button" data-cmd="quote" title="引用">❝</button>
+        <button type="button" data-cmd="ul" title="无序列表">• 列表</button>
+        <button type="button" data-cmd="ol" title="有序列表">1. 列表</button>
+        <span class="sep"></span>
+        <button type="button" data-cmd="link" title="链接 Ctrl+K">链接</button>
+        <button type="button" data-cmd="image" title="图片（也可直接粘贴/拖拽图片文件）">图片</button>
+        <button type="button" data-cmd="code" title="代码块">&lt;/&gt;</button>
+        <button type="button" data-cmd="table" title="表格">表格</button>
+        <button type="button" data-cmd="hr" title="水平分割线">―</button>
+      </div>
+
+      <div class="editor-wrap">
+        <textarea id="body" class="editor" spellcheck="false" placeholder="在此输入 Markdown 正文…（可直接粘贴或拖拽图片文件）" disabled></textarea>
+        <div class="empty-hint" id="emptyHint">尚未打开文章<br><small>从左侧列表选择，或点击顶部「＋ 新建文章」</small></div>
+      </div>
+    </section>
+
+    <!-- 右：实时预览 -->
+    <section class="pane pane-preview">
+      <div class="pane-head">
+        <h2>实时预览</h2>
+        <span class="pane-note">滚动与编辑区大致同步</span>
+      </div>
+      <article class="markdown-body" id="preview"><p class="preview-empty">预览会在这里实时显示。</p></article>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="/vendor/markdown-lite.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

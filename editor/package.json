@@ -1,0 +1,9 @@
+{
+  "name": "jekyll-md-editor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jekyll 博客本机 Markdown 可视化编辑器（零运行时依赖）",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
